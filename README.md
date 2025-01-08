@@ -80,7 +80,7 @@ Before you begin, ensure that you have met the following requirements:
    npm start
    ```
 
-   This will start the server on `http://localhost:3000`.
+   This will start the server on `http://<IP_Address>:3000`.
 
 2. **Verify the server is running:**
 
@@ -96,42 +96,30 @@ Before you begin, ensure that you have met the following requirements:
    Welcome to the Emotorad Backend Task API
    ```
 
-## API Endpoints
+## Curl
+This is the command we use to send the request to the API to store the data in the database.
 
-### 1. **POST /identify**
-
-#### Request Body
-
-The request body should contain either an email or a phone number (or both). Here's an example:
-
-```json
-{
-  "email": "john.doe@example.com",
-  "phoneNumber": "123-456-7890"
-}
+### User1 
+``` bash
+curl -X POST http://98.84.159.39:3000/identify -H "Content-Type: application/json" -d '{"email": "user1@example.com", "phoneNumber": "1234567890"}'
+```
+### User2
+``` bash
+curl -X POST http://98.84.159.39:3000/identify -H "Content-Type: application/json" -d '{"email": "user2@example.com", "phoneNumber": "1231231230"}'
+```
+### User3
+``` bash
+curl -X POST http://98.84.159.39:3000/identify -H "Content-Type: application/json" -d '{"email": "user3@example.com", "phoneNumber": "1234569870"}'
 ```
 
-#### Response
-
-- **200 OK**: A JSON object containing the primary contact ID, emails, phone numbers, and secondary contact IDs.
-
-Example response:
-
-```json
-{
-  "primaryContactId": 1,
-  "emails": ["john.doe@example.com", "secondary.email@example.com"],
-  "phoneNumbers": ["123-456-7890", "987-654-3210"],
-  "secondaryContactIds": [2, 3]
-}
+## Test Cases
+### Test Case 1: Test the API to store the data in the database if the Mobile Number is already present in the database.
+``` bash
+curl -X POST http://98.84.159.39:3000/identify -H "Content-Type: application/json" -d '{"email": "user2_new@example.com", "phoneNumber": "1231231230"}'
 ```
-
-- **500 Internal Server Error**: If there is an error processing the request, you will receive a response like this:
-
-```json
-{
-  "error": "An error occurred while processing the request."
-}
+### Test Case 2: Test the API to store the data in the database if the Email Id is already present in the database.
+``` bash
+curl -X POST http://98.84.159.39:3000/identify -H "Content-Type: application/json" -d '{"email": "user3@example.com", "phoneNumber": "4564564568"}'
 ```
 
 ## Database
